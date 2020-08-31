@@ -2,6 +2,6 @@
 entertaining game that enriches your knowledge
 
 Description
-c'est un jeu concu avec le langage javascript, Html et CSS, tres divertissant, il se comporte comme un jeu de carreau mais de chocolat, prenez le maximum de tranche possible sauf qu'il faut eviter de prendre une seule tranche sinon vous perdez.
+it's a game designed with javascript, HTML and CSS, very entertaining, it behaves like a game of diamonds but of chocolate, take the maximum of slices possible except that you must avoid taking a single slice otherwise you lose .
 
-tres simple et tres facile
+very simple and very easy
