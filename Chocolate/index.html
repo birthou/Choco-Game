@@ -1,0 +1,241 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Chocolate is so good</title>
+	<style>
+			h1{
+				color: #fff;
+				font-size: 80px;
+				text-align: center;
+				font-family: Oswald-Light, sans-serif;	
+			  }
+			  
+			  label{
+			  color: #fff;
+			  font-size: 13px;
+			  font-family: Oswald-bold, sans-serif;
+			  }
+			  
+			  #centre{
+			  background-color:black;
+			  margin: 50px;
+			  margin-top: 25px;
+			  padding:50px;
+			  }
+			  
+			  fieldset{
+			  color: #fff;
+			  font-size: 13px;
+			  font-family: Oswald-bold, sans-serif;
+			  }
+			  
+		</style>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+	<link rel="stylesheet" href="css/chocolate.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>	
+	<script type="text/javascript" src="js/chocolate.js"></script>
+	<script type="text/javascript" src="js/imageMapResizer.min.js"></script>
+	<script type="text/javascript">
+		var chocolateBar;
+        $(document).ready(function(){	
+			$('map').imageMapResize();
+			$('input[type=text]').keyup(function() {
+				if ($("#playerA").val().trim() != "" && $("#playerB").val().trim() != "") {
+                    $("#startGame").removeClass("ui-disabled");
+				}
+				else {
+					$("#startGame").addClass("ui-disabled");
+				}
+			});
+		});
+        
+    </script>	
+</head>
+<body>
+<!---------------------------------- Splash Page --------------------------------------->
+<section data-role="page" data-theme="dark">
+	<div data-role="content"> 
+		<center>
+				<h1 font-size="80px">CHOCO GAME</h1>
+				<!--M3-->
+				<img id="splash" src="img/splashAGif480.gif" style="max-width:100%; max-height:auto" usemap="#splashMap">
+				<map name="splashMap">
+				<area shape="rect" coords="120,420,326,475" href="#twoPlayers">
+				</map>
+		</center>
+	</div>		
+</section>
+
+
+<!---------------------------------- Two players Page --------------------------------------->
+<section data-role="page" id="twoPlayers" data-theme="dark">
+<center id="centre">
+	<header data-role="header">
+		<h1>Parametre du jeu</h1>
+	</header>
+	<div data-role="content">
+		<div data-role="fieldcontain">
+          <label for="playerA">Joueur A:</label>
+          <input type="text" name="playerA" id="playerA">
+        </div>
+		<div data-role="fieldcontain">
+          <label for="playerB">Joueur B:</label>
+          <input type="text" name="playerB" id="playerB">
+        </div>
+		<br>
+		<center>
+			<div data-role="fieldcontain">
+			  <fieldset data-role="controlgroup" data-type="horizontal">				
+				<legend >Start the game with:</legend>
+				<input type="radio" name="firstPlayer" id="playerAFirst" value="aFirst" checked="true" data-inline="true" style="padding: 00px 20px">				
+				<label for="playerAFirst" data-inline="true">Joueur A</label>
+				<input type="radio" name="firstPlayer" id="playerBFirst" value="bFirst" data-inline="true" style="padding: 00px 20px">
+				<label for="playerBFirst" data-inline="true">Joueur B</label>
+				<br>
+				<br>
+				<p><a href="#game" id="startGame" data-role="button" data-transition="slidedown" style="width:130px" class="ui-disabled">Start Game
+				<script>
+					$("#startGame").click(function() {
+						chocolateBar = new ChocolateBar($( "table.chocolateBar" ),4,6);
+						chocolateBar.restart();
+					});                
+				</script>
+				</a></p>
+			  <fieldset>
+			</div>
+			<a href="#endGameDlg" data-transition="pop" data-direction="reverse" id="linkEndGameDlg" style="display:none">HiddenLinkForEndGameDlg</a>
+			<div data-role="navbar">
+			<ul>
+				<li><a href="#twoPlayers" class="ui-btn-active ui-state-persist">Menu</a></li>
+				<li><a href="javascript:'top.close();'" id="exit">Exit</a></li>
+				<li><a href="#about">A propos</a></li>
+			</ul>
+		</div>
+		
+		</center>
+		
+		</div>
+	</center>
+</section>
+
+<!---------------------------------- Main Game Page --------------------------------------->
+<section data-role="page" id="game" data-theme="dark">	
+	<header data-role="header">
+		<h1 id="playerTurn"></h1>
+	</header>
+	<div data-role="content">
+        <br><br>
+		<center>		
+		<table class="chocolateBar">
+			<!--- Will be populated dynamically. --->
+		</table>
+        <br><br>
+		<a href="#" data-role="button" id="cutBtn" style="width:130px">Take
+			<script>
+				$("#cutBtn").click(function() {
+					chocolateBar.cut();	
+					$(this).removeClass("ui-state-focus");					
+				});                
+			</script>
+		</a>
+		</center>		
+	</div>
+	<footer data-role="footer" data-position="fixed" data-id="nav">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#" id="quitBtnNav" class="ui-btn-active ui-state-persist"  data-transition="pop" data-direction="reverse">Quit game
+					<script>
+						$("#quitBtnNav").click(function() {
+							if (!chocolateBar.isEndGame()) {
+								$("#linkQuitGameDlg").click();
+							}
+							else {
+								$("#quitBtn").click()
+							}
+						});                
+					</script>
+				</a></li>
+				<li><a href="javascript:'top.close();'" id="exit">Exit</a></li>
+				<a href="#quitGameDlg" data-transition="pop" data-direction="reverse" id="linkQuitGameDlg" style="display:none">HiddenLinkForQuitGameDlg</a>
+				<!--We will have the give up posibility here-->
+			</ul>
+		</div>
+    </footer>
+</section>
+
+<!---------------------------------- About Page ------------------------------------->
+<section data-role="page" id="about"  data-theme="b">
+	<header data-role="header" data-position="fixed">
+		<h1>A propos du jeu</h1>
+	</header>
+	<div data-role="content"> 
+		<h1 style="text-align: center;">Welcome to Chocolate version 1.1 !</h1>
+		<p style="text-align: center;">This is my first jQuery game !</a></p>
+    </div>
+	<footer data-role="footer" data-position="fixed" data-id="nav">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#twoPlayers">Menu</a></li>
+			</ul>
+		</div>
+    </footer>
+</section>
+            
+<!---------------------------------- EndGame Dialog ------------------------------------->
+<div data-role="dialog" id="endGameDlg" data-position-to="window" data-theme="b">
+	<header data-role="header">
+		<h1>Game Over</h1>
+	</header>
+	<div data-role="content"> 
+		<center>
+			<div id="msgConfirm"></div>
+			<br>
+			<fieldset class="ui-grid-a">
+				<div class="ui-block-a">
+					<a href="#game" id="playAgainBtn" data-role="button" data-transition="slidedown" style="width:150px">Again
+						<script>
+							$("#playAgainBtn").click(function() {
+								chocolateBar.restart();					
+							});                
+						</script>
+					</a>
+				</div>
+				<div class="ui-block-b">
+					<a href="#game" data-role="button" id="stopBtn" style="width:150px">Stop
+						<script>
+							$("#stopBtn").click(function() {
+								 $('#playerTurn').html($('#msgConfirm').text());
+							});
+						</script>
+					</a>
+				</div>
+			</fieldset>
+		</center>
+	</div>
+</div>
+
+<!---------------------------------- Quit Game Dialog ------------------------------------->
+<div data-role="dialog" id="quitGameDlg" data-position-to="window" data-theme="b">
+	<header data-role="header">
+		<h1>Quitter Jeu</h1>
+	</header>
+	<div data-role="content"> 
+		<center>
+			<h3>Vous voulez vraiment quitter le jeu? ?</h1>
+			<br>
+			<fieldset class="ui-grid-a">
+				<div class="ui-block-a">
+					<a href="#twoPlayers" id="quitBtn" data-role="button" data-transition="slidedown" style="padding: 00px 20px">Yes</a>
+				</div>
+				<div class="ui-block-b">
+					<a href="#game" data-role="button" id="continueBtn" style="width:150px">No</a>
+				</div>
+			</fieldset>
+		</center>
+	</div>
+</div>
+</body>
+</html>

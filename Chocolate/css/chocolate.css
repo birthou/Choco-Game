@@ -1,0 +1,71 @@
+@font-face { 
+	font-family: 'Oswald-Light'; 
+	src: url('../css/Oswald-Light.ttf'); 
+}
+@font-face { 
+	font-family: 'Oswald-Bold'; 
+	src: url('../css/Oswald-Bold.otf'); 
+}
+::-webkit-scrollbar { 
+	width: 16px;
+}
+::-webkit-scrollbar-track { 
+	background-color: #333;
+} 
+::-webkit-scrollbar-thumb { 
+	background-color: #424e69;
+}
+::-webkit-scrollbar-thumb:hover { 
+	background-color: #8295d5;
+}
+
+
+html, body { 
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+}
+html  { 
+	background-image: url('../img/bg.jpg');
+	background-repeat: no-repeat;
+	background-position: 0% 0%;
+	background-size: cover;
+	background-attachment: fixed;
+}
+body { 
+	position: relative;
+}
+
+.ui-mobile {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+h2 { 
+	margin: 1px 0px 0px 0px;
+}
+
+body.caution {
+	cursor: help ;
+}
+
+table.chocolateBar td {
+	background-color: rgb(99,62,41);
+	border-color: rgb(151,75,0);
+	cursor: pointer ;
+	height: 80px ;
+	width: 80px;
+}
+
+table.chocolateBar td.selected {
+	background-color: rgb(220,197,184) ;
+}
+
+
+
